@@ -1,11 +1,25 @@
-import {StackScreenProps} from '@react-navigation/stack';
-import React from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {RootStackParams} from '../../navigation/StackNavigator';
+import { StackScreenProps } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { getList } from '../../../actions/get-list';
+import { RootStackParams } from '../../navigation/StackNavigator';
+
+interface Product {
+  id: string;
+  name: string;
+  color: string;
+  stock: string;
+}
 
 interface Props extends StackScreenProps<RootStackParams> {}
 
 export const ProductScreen = ({navigation}: Props) => {
+  const [list, setList] = useState<Product[]>([])
+
+  useEffect(() => {
+    getList(setList)
+  }, [])
+  
   return (
     <View>
       <ScrollView style={{marginHorizontal: 20}}>
@@ -18,6 +32,7 @@ export const ProductScreen = ({navigation}: Props) => {
           <Text style={styles.textTitle}>Lista de los productos</Text>
         </View>
       </ScrollView>
+      <Text>{JSON.stringify(list,null,2)}</Text>
     </View>
   );
 };
