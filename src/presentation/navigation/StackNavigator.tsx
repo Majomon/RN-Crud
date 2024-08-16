@@ -6,7 +6,7 @@ import {ShowScreen} from '../screens/show/ShowScreen';
 export type RootStackParams = {
   ProductScreen: undefined;
   CreateScreen: undefined;
-  ShowScreen: undefined;
+  ShowScreen: {productId: string};
 };
 
 const Stack = createStackNavigator<RootStackParams>();

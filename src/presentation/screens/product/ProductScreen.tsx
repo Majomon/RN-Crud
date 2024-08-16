@@ -41,7 +41,11 @@ export const ProductScreen = ({navigation}: Props) => {
         numColumns={2}
         keyExtractor={(item, index) => `${item.id}-${index}`}
         renderItem={({item}) => (
-          <Pressable style={styles.buttonProduct}>
+          <Pressable
+            style={styles.buttonProduct}
+            onPress={() =>
+              navigation.navigate('ShowScreen', {productId: item.id})
+            }>
             <Text style={styles.buttonText}>{item.name}</Text>
           </Pressable>
         )}
