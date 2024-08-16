@@ -1,8 +1,15 @@
-import { StackScreenProps } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { getList } from '../../../actions/get-list';
-import { RootStackParams } from '../../navigation/StackNavigator';
+import {StackScreenProps} from '@react-navigation/stack';
+import React, {useEffect, useState} from 'react';
+import {
+  FlatList,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {getList} from '../../../actions/get-list';
+import {RootStackParams} from '../../navigation/StackNavigator';
 
 interface Product {
   id: string;
@@ -14,34 +21,39 @@ interface Product {
 interface Props extends StackScreenProps<RootStackParams> {}
 
 export const ProductScreen = ({navigation}: Props) => {
-  const [list, setList] = useState<Product[]>([])
+  const [list, setList] = useState<Product[]>([]);
 
   useEffect(() => {
-    getList(setList)
-  }, [])
-  
+    getList(setList);
+  }, []);
+
   return (
-    <View>
-      <ScrollView style={{marginHorizontal: 20}}>
+    <View style={styles.container}>
+      <ScrollView>
         <Pressable
           style={styles.button}
           onPress={() => navigation.navigate('CreateScreen')}>
           <Text style={styles.buttonText}>Agregar los productos</Text>
         </Pressable>
-        <View>
-          <Text style={styles.textTitle}>Lista de los productos</Text>
-        </View>
       </ScrollView>
-      <Text>{JSON.stringify(list,null,2)}</Text>
+      <FlatList
+        data={list}
+        numColumns={2}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
+        renderItem={({item}) => (
+          <Pressable style={styles.buttonProduct}>
+            <Text style={styles.buttonText}>{item.name}</Text>
+          </Pressable>
+        )}
+        ListFooterComponent={() => <View style={{height: 150}} />}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginHorizontal: 20,
   },
   button: {
     backgroundColor: '#1e90ff',
@@ -58,5 +70,13 @@ const styles = StyleSheet.create({
   textTitle: {
     textAlign: 'center',
     fontSize: 16,
+  },
+  buttonProduct: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 10,
+    margin: 15,
+    backgroundColor: 'green',
+    borderRadius: 10,
   },
 });
