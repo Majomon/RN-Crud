@@ -1,14 +1,28 @@
-import { StackScreenProps } from '@react-navigation/stack';
-import React from 'react';
+import {StackScreenProps} from '@react-navigation/stack';
+import React, {useEffect, useState} from 'react';
 import {Text, View} from 'react-native';
-import { RootStackParams } from '../../navigation/StackNavigator';
+import {RootStackParams} from '../../navigation/StackNavigator';
+import {collection, getDocs, getFirestore} from 'firebase/firestore';
+import appFirebase from '../../../firebase/firebaseConfig';
+import {getOneProduct} from '../../../actions/get-one-products';
 
-interface Props extends StackScreenProps<RootStackParams,"ShowScreen">{}
+const db = getFirestore(appFirebase);
 
-export const ShowScreen = ({route}:Props) => {
-  console.log(route.params.productId)
+interface Props extends StackScreenProps<RootStackParams, 'ShowScreen'> {}
 
-  
+export const ShowScreen = ({route}: Props) => {
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    getOneProduct(route.params.productId, setProduct);
+
+    console.log(product);
+    
+    return () => {
+      setProduct({});
+    };
+  }, []);
+
   return (
     <View>
       <Text>ShowScreen</Text>
