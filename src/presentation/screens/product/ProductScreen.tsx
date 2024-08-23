@@ -25,7 +25,7 @@ export const ProductScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     getList(setList);
-  }, []);
+  }, [list]);
 
   return (
     <View style={styles.container}>
