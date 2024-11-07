@@ -2,15 +2,22 @@
 import {initializeApp} from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  MESSAGING_SENDERID,
+  APP_ID,
+} from '@env';
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyD_obpNAP-ZOcX9BPwAzpiQPKsYvjVnm6w',
-  authDomain: 'rn-crud-f5219.firebaseapp.com',
-  projectId: 'rn-crud-f5219',
-  storageBucket: 'rn-crud-f5219.appspot.com',
-  messagingSenderId: '339683326637',
-  appId: '1:339683326637:web:7b6d490b1bfa97c7986424',
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDERID,
+  appId: APP_ID,
 };
 
 // Initialize Firebase
